@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <LoginPage/>
+    <template v-if="isAuth">
+      <router-link to="/employee">Employee</router-link> |
+      <router-link to="/address">Address</router-link> |
+    </template>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import LoginPage from './components/LoginPage.vue'
-
 export default {
-  name: 'App',
-  components: {
-    LoginPage
+  computed: {
+    isAuth: function () {
+      return localStorage.getItem('token')
+    }
   }
 }
 </script>
@@ -22,6 +25,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

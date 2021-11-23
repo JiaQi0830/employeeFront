@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container class="p-5">
     <h1>Employee Management System</h1>
     <b-form @submit.prevent="onSubmit">
       <b-form-input
@@ -22,13 +22,11 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import apiHelper from '../helper/apiHelper'
 
 export default {
   name: 'LoginPage',
   props: {
-    msg: String
   },
   data() {
     return {
@@ -43,7 +41,10 @@ export default {
       e.preventDefault()
       try {
         let token = await apiHelper().post("/api/login", this.form)
-        localStorage.token = token.data
+        let accessToken = token.data
+
+        localStorage.setItem('token', accessToken)
+        this.$router.push({ name: 'Employee'})
       } catch (error) {
         console.log(error.response.data.message)
       }

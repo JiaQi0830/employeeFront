@@ -1,10 +1,16 @@
 import axios from 'axios'
 
-export default function apiHelper() {
+export default function apiHelper(isAuth = false) {
+  let headers = {
+    Accept: 'application/json'
+  }
+
+  if(isAuth) {
+    headers['Authorization'] = "Bearer 154|4jLJeoGDOjHbglmRtWpRlGCReykooUNVFrUN5BUz"
+  }
+
   const apiInstance = axios.create({
-    headers: {
-      Accept: 'application/json'
-    }
+    headers: headers
   })
 
   return apiInstance
